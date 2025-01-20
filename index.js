@@ -5,7 +5,7 @@
 
 const process = require('node:process');
 const arguments = process.argv.slice(2);
-const validArguments = ["--length", "--help", "--h", "help"];
+const validArguments = ["--help", "--h", "help", "--length", "--l", "--numbers", "--n"];
 // Set default length to 8 if user does not pass the -- length argument.
 let length = 8;
 
