@@ -37,13 +37,18 @@ if (arguments.includes("--help") || arguments.includes("--h") || arguments.inclu
 
 // Main code:
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
+const numbers = "0123456789";
 let password = "";
 
-for (let i = 0; i < length; i++) {
-    // Generate a random alphabetical character until password reaches the correct length
-    const randomAlpha = alphabet[Math.floor(Math.random() * alphabet.length)];
-    password += randomAlpha;
+function GeneratePassword() {
+    for (let i = 0; i < length; i++) {
+        // Generate a random alphabetical character until password reaches the correct length
+        const randomAlpha = alphabet[Math.floor(Math.random() * alphabet.length)];
+        password += randomAlpha;
+    }
+
+    // Output the password:
+    console.log(password);
 }
 
-// Output the password:
-console.log(password)
+GeneratePassword();
