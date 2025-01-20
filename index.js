@@ -37,7 +37,6 @@ if (arguments.includes("--help") || arguments.includes("--h") || arguments.inclu
 
 // Main code:
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
-const numbers = "0123456789";
 let password = "";
 
 function GeneratePassword() {
