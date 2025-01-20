@@ -16,6 +16,7 @@ node index.js [arguments]
 ### Arguments
 - `--help`, `--h`, `help`: Displays the help message.
 - `--length`, `--l`: Sets the length of the password. Default is 8.
+- `--upper`, `--u`: Includes uppercase letters in the password.
 - `--numbers`, `--n`: Includes numerical characters in the password.
 - `--symbols`, `--s`: Includes symbol characters in the password.
 
@@ -33,6 +34,11 @@ node index.js --help
 Generate a password with a specified length (12 characters):
 ```sh
 node index.js --length 12
+```
+
+Generate a password with uppercase letters:
+```sh
+node index.js --upper
 ```
 
 Generate a password that includes numbers:
