@@ -1,11 +1,20 @@
 {
   "name": "qap1",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "A password generating CLI application.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
+  "keywords": [
+    "password",
+    "generator",
+    "CLI",
+    "application"
+  ],
   "author": "Vanessa Maher",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vmmaher/PasswordGenerator"
+  }
 }
