@@ -1,60 +1,84 @@
 // Password Generator CLI Application
 // Full Stack JavaScript - QAP 1
 // By: Vanessa Maher
-// Version 0.2.0
+// Version 0.4.0
 
 const process = require('node:process');
 const arguments = process.argv.slice(2);
-const validArguments = ["--help", "--h", "help", "--length", "--l"];
-// Set default length to 8 if user does not pass the -- length argument.
+const validArguments = ["--help", "--h", "help", "--length", "--l", "--upper", "--u", "--numbers", "--n", "--symbols", "--s"];
+// Set default length to 8.
 let length = 8;
 
-// Arguments:
+// Help argument:
 if (arguments.includes("--help") || arguments.includes("--h") || arguments.includes("help")) {
-    console.log(`This is a generic password generator.
+    console.log(`       
+        This is a generic password generator.
+        By default, it will generate a password with 8 characters using only the alphabet.
+        For more information, please read the README.md file.
 
         Arguments:
         --help, --h, help: Displays this help message.
-        --length, --l: Sets the length of the password. Default is 8.`);
+        --length, --l: Sets the length of the password. Default is 8.
+        --upper, --u: Adds uppercase letters to the password generation.
+        --numbers, --n: Adds numbers to the password generation.
+        --symbols, --s: Adds symbols to the password generation.`);
         process.exit(0);
         // Exit after the above so that the code does not continue
-} else if (arguments.includes("--length") || arguments.includes("--l")) {
-    if (arguments.includes("--length")) {
-        length = arguments[arguments.indexOf("--length") + 1];
-    } else if (arguments.includes("--l")) {
-        length = arguments[arguments.indexOf("--l") + 1];
-    }
-    
-    if (length === undefined || isNaN(length) || length < 1) {
-        // If length is not provided or is not a number, show an error message
-        console.log("Please provide a length value after the --length argument.");    
-    }
-} else {
-    // Check for any invalid arguments 
-    arguments.forEach(function(arg) {
-        if (!validArguments.includes(arg)) {
-            console.log(`Invalid argument: '${arg}'. Please use --help to see the valid arguments.`);
-            process.exit(1);  
-            // Exit with an error after the above so that the code does not continue
-        }
-        // If check passes, continue with the rest of the code
-
-    });
 }
 
+// Length argument, getting the length value:
+if (arguments.includes("--length") || arguments.includes("--l")) {
+    let lengthIndex;
+    // Check if the user used --length or --l
+    if (arguments.includes("--length")) {
+        lengthIndex = arguments.indexOf("--length");
+    } else {
+        lengthIndex = arguments.indexOf("--l");
+    }
+    const lengthValue = arguments[lengthIndex + 1];
+
+    // Check if the user provided a valid length value
+    if (!lengthValue || isNaN(lengthValue) || lengthValue < 1) {
+        console.log("Please provide a valid numeric value.");
+        process.exit(1);
+    }
+
+    // Convert the valid length to an integer
+    length = parseInt(lengthValue, 10);
+}
+// Validate arguments
+arguments.forEach(function(arg, index) {
+    if (!validArguments.includes(arg) && (index === 0 || !validArguments.includes(arguments[index - 1])) && isNaN(arg)) {
+        console.log(`Invalid argument: '${arg}'. Please use --help to see the valid arguments.`);
+        process.exit(1);  
+        // Exit with an error after the above so that the code does not continue
+    }
+});
 
 // Main code:
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
-let password = "";
+const alphabetUpper = alphabet.toUpperCase();
+const numbers = "0123456789";
+const symbols = "!\"#$%&'()*+,-./:;<=>?@[]^_{|}~";
 
-function GeneratePassword() {
-    for (let i = 0; i < length; i++) {
-        // Generate a random alphabetical character until password reaches the correct length
-        const characterPool = alphabet
-        password += characterPool[Math.floor(Math.random() * characterPool.length)];
-    }
-    // Output the password:
-    console.log(password);
+let password = "";
+// Default character pool is the alphabet.
+let characterPool = alphabet;
+if (arguments.includes("--upper") || arguments.includes("--u")) {
+    // If user asked for uppercase letters in their password, add them to the calculation.
+    characterPool += alphabetUpper;
+}
+if (arguments.includes("--numbers") || arguments.includes("--n")) {
+    // If user asked for numbers in their password, add them to the calculation.
+    characterPool += numbers;
+} 
+if (arguments.includes("--symbols") || arguments.includes("--s")) {
+    // If user asked for symbols in their password, add them to the calculation.
+    characterPool += symbols;
+}
+for (let i = 0; i < length; i++) {
+    password += characterPool[Math.floor(Math.random() * characterPool.length)];       
 }
 
-GeneratePassword();
+// Output the password:
+console.log(password);
